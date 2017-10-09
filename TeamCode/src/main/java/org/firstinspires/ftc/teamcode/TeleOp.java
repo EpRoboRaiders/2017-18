@@ -13,9 +13,9 @@ public class TeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        double left;
-        double right;
-        double lift;
+        double left = 0;
+        double right = 0;
+        double lift = 0;
         double clawPosition = 1;
 
         robot.init(hardwareMap);
@@ -27,19 +27,13 @@ public class TeleOp extends LinearOpMode {
 
         while(opModeIsActive()) {
 
+            robot.JS1.setPower(0);
+
             // Tank drive
             left = gamepad1.left_stick_y;
             right = gamepad1.right_stick_y;
-            robot.leftMotor.setPower(left);
-            robot.rightMotor.setPower(right);
-
-            // Relic Movement
-            if(gamepad1.a){
-                robot.JS2.setPosition(0);
-                robot.JS1.setPower(1);
-            } else {
-                robot.JS1.setPower(0);
-            }
+            robot.leftMotor.setPower(-left);
+            robot.rightMotor.setPower(-right);
 
             // Claw
             if(gamepad2.y){
@@ -51,7 +45,7 @@ public class TeleOp extends LinearOpMode {
 
             // Lift
             lift = gamepad2.left_stick_y;
-            robot.liftMotor.setPower(lift);
+            robot.liftMotor.setPower(-lift);
 
             // Gripper
             if(gamepad2.b) {
@@ -60,10 +54,6 @@ public class TeleOp extends LinearOpMode {
             }else{
                 robot.leftGripper.setPosition(.7);
                 robot.rightGripper.setPosition(.3);
-            }
-            // Jewel
-            if (gamepad1.b){
-                robot.JS2.setPosition(.5);
             }
 
             telemetry.addData("Left Motor",  "%.2f", left);
