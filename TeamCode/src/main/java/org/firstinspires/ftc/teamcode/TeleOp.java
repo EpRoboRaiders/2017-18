@@ -52,8 +52,8 @@ public class TeleOp extends LinearOpMode {
                 robot.leftGripper.setPosition(1);
                 robot.rightGripper.setPosition(0);
             }else{
-                robot.leftGripper.setPosition(.7);
-                robot.rightGripper.setPosition(.3);
+                robot.leftGripper.setPosition(.8);
+                robot.rightGripper.setPosition(.2);
             }
 
             telemetry.addData("Left Motor",  "%.2f", left);
