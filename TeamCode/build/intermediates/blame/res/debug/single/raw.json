@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\6cb138878ed00a0097efbecec3e27ee67b3e1f46\\output\\res\\raw\\simple_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\6cb138878ed00a0097efbecec3e27ee67b3e1f46\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\883851754da4eadeb4f5c776f513880a1e87177a\\output\\res\\raw\\chimeconnect.wav"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\883851754da4eadeb4f5c776f513880a1e87177a\\output\\res\\raw\\warningmessage.wav"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\883851754da4eadeb4f5c776f513880a1e87177a\\output\\res\\raw\\errormessage.wav"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\883851754da4eadeb4f5c776f513880a1e87177a\\output\\res\\raw\\nxtstartupsound.wav"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\883851754da4eadeb4f5c776f513880a1e87177a\\output\\res\\raw\\chimedisconnect.wav"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\6cb138878ed00a0097efbecec3e27ee67b3e1f46\\output\\res\\raw\\texture_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\6cb138878ed00a0097efbecec3e27ee67b3e1f46\\output\\res\\raw\\texture_vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\6cb138878ed00a0097efbecec3e27ee67b3e1f46\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\FIRSTMentor\\Desktop\\All FTC\\2017-18\\TeamCode\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "C:\\Users\\FIRSTMentor\\.android\\build-cache\\6cb138878ed00a0097efbecec3e27ee67b3e1f46\\output\\res\\raw\\color_fragment_shader.glsl"
+    }
+]
