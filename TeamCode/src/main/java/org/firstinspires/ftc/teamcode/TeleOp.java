@@ -13,9 +13,7 @@ public class TeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        double left = 0;
-        double right = 0;
-        double lift = 0;
+
         double clawPosition = 1;
 
         robot.init(hardwareMap);
@@ -27,11 +25,9 @@ public class TeleOp extends LinearOpMode {
 
         while(opModeIsActive()) {
 
-            robot.JS1.setPower(0);
-
             // Tank drive
-            left = gamepad1.left_stick_y;
-            right = gamepad1.right_stick_y;
+           double left = gamepad1.left_stick_y;
+           double right = gamepad1.right_stick_y;
             robot.leftMotor.setPower(-left);
             robot.rightMotor.setPower(-right);
 
@@ -44,14 +40,16 @@ public class TeleOp extends LinearOpMode {
             robot.claw.setPosition(clawPosition);
 
             // Lift
-            lift = gamepad2.left_stick_y;
+            double lift = gamepad2.left_stick_y;
             robot.liftMotor.setPower(-lift);
 
             // Gripper
             if(gamepad2.b) {
+                //Closed
                 robot.leftGripper.setPosition(1);
                 robot.rightGripper.setPosition(0);
             }else{
+                //Open
                 robot.leftGripper.setPosition(.8);
                 robot.rightGripper.setPosition(.2);
             }

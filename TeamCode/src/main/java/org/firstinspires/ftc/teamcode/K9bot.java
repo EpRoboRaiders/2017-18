@@ -45,7 +45,7 @@ public class K9bot
     public DcMotor rightMotor = null;
     public Servo leftGripper = null;
     public Servo rightGripper = null;
-    public Servo relic = null;
+    public DcMotor relicMotor = null;
     public Servo claw = null;
     public CRServo JS1 = null;
     public Servo JS2 = null;
@@ -68,11 +68,13 @@ public class K9bot
         leftMotor = hwMap.get(DcMotor.class, "LeftMotor");
         rightMotor = hwMap.get(DcMotor.class, "RightMotor");
         liftMotor = hwMap.get(DcMotor.class, "LiftMotor");
+        relicMotor = hwMap.get(DcMotor.class, "RelicMotor");
 
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         liftMotor.setPower(0);
+        relicMotor.setPower(0);
 
         leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -83,7 +85,6 @@ public class K9bot
         // Define and initialize ALL installed servos.
         leftGripper = hwMap.get(Servo.class, "Left Gripper");
         rightGripper = hwMap.get(Servo.class, "Right Gripper");
-        relic = hwMap.get(Servo.class, "Relic");
         claw = hwMap.get(Servo.class, "Claw");
         JS1 = hwMap.get(CRServo.class, "Jewel Servo One");
         JS2 = hwMap.get(Servo.class, "Jewel Servo Two");
