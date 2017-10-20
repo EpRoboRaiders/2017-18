@@ -15,7 +15,6 @@ public class TeleOp extends LinearOpMode {
     public void runOpMode() {
 
         double clawPosition = 1;
-        double slow = .75;
         boolean speed = true;
 
         robot.init(hardwareMap);
@@ -33,15 +32,16 @@ public class TeleOp extends LinearOpMode {
             if(gamepad1.x) {
                 speed = !speed;
             }
+            double slow = speed ? 1 : .75;
             if(gamepad1.right_bumper) {
-                robot.leftMotor.setPower(speed ? 1 : slow);
-                robot.rightMotor.setPower(speed ? 1 : slow);
+                robot.leftMotor.setPower(slow);
+                robot.rightMotor.setPower(slow);
             } else if(gamepad1.left_bumper) {
-                robot.leftMotor.setPower(speed ? -1 : -slow);
-                robot.rightMotor.setPower(speed ? -1 : -slow);
+                robot.leftMotor.setPower(-slow);
+                robot.rightMotor.setPower(-slow);
             } else {
-                robot.leftMotor.setPower(-left * (speed ? 1 : slow));
-                robot.rightMotor.setPower(-right * (speed ? 1 : slow));
+                robot.leftMotor.setPower(-left * slow);
+                robot.rightMotor.setPower(-right * slow);
             }
 
             // Claw
