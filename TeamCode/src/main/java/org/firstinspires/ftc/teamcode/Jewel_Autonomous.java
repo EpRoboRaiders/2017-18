@@ -29,7 +29,6 @@ public class Jewel_Autonomous extends LinearOpMode  {
         }
         robot.JS1.setPower(0);
 
-/*
             // Display color values
             telemetry.addData("Red", robot.colorSensor.red());
             telemetry.addData("Blue", robot.colorSensor.blue());
@@ -50,7 +49,7 @@ public class Jewel_Autonomous extends LinearOpMode  {
             } else {
                 robot.JS2.setPosition(1);
             }
-            robot.JS2.setPosition(.5); */
+            robot.JS2.setPosition(.5);
         }
 
     public void runOpMode() {
