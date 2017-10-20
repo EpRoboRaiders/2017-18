@@ -4,12 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class TeleOpTester extends LinearOpMode {
 
-    double clawPosition = 0;
-
     K9bot robot = new K9bot();
 
     @Override
     public void runOpMode() {
+
+        double clawPosition = 0;
 
         robot.init(hardwareMap);
 
@@ -60,9 +60,13 @@ public class TeleOpTester extends LinearOpMode {
 
             // Claw
             if(gamepad2.y){
-                clawPosition += .01 ;
+                clawPosition += .01;
             }else{
-                clawPosition -= .01;
+                if(clawPosition <= 0) {
+                    clawPosition = 0;
+                } else {
+                    clawPosition -= .01;
+                }
             }
             robot.claw.setPosition(clawPosition);
 

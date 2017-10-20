@@ -15,6 +15,8 @@ public class TeleOp extends LinearOpMode {
     public void runOpMode() {
 
         double clawPosition = 1;
+        double slow = .75;
+        boolean speed = true;
 
         robot.init(hardwareMap);
 
@@ -28,20 +30,35 @@ public class TeleOp extends LinearOpMode {
             // Tank drive
            double left = gamepad1.left_stick_y;
            double right = gamepad1.right_stick_y;
-            robot.leftMotor.setPower(-left);
-            robot.rightMotor.setPower(-right);
+            if(gamepad1.x) {
+                speed = !speed;
+            }
+            if(gamepad1.right_bumper) {
+                robot.leftMotor.setPower(speed ? 1 : slow);
+                robot.rightMotor.setPower(speed ? 1 : slow);
+            } else if(gamepad1.left_bumper) {
+                robot.leftMotor.setPower(speed ? -1 : -slow);
+                robot.rightMotor.setPower(speed ? -1 : -slow);
+            } else {
+                robot.leftMotor.setPower(-left * (speed ? 1 : slow));
+                robot.rightMotor.setPower(-right * (speed ? 1 : slow));
+            }
 
             // Claw
             if(gamepad2.y){
-                    clawPosition -= .01 ;
-                }else{
-                    clawPosition += .01 ;
+                clawPosition += .01;
+            }else{
+                if(clawPosition <= 0) {
+                    clawPosition = 0;
+                } else {
+                    clawPosition -= .01;
                 }
+            }
             robot.claw.setPosition(clawPosition);
 
             // Lift
             double lift = gamepad2.left_stick_y;
-            robot.liftMotor.setPower(-lift);
+            robot.liftMotor.setPower(lift);
 
             // Gripper
             if(gamepad2.b) {
@@ -50,8 +67,8 @@ public class TeleOp extends LinearOpMode {
                 robot.rightGripper.setPosition(0);
             }else{
                 //Open
-                robot.leftGripper.setPosition(.8);
-                robot.rightGripper.setPosition(.2);
+                robot.leftGripper.setPosition(.7);
+                robot.rightGripper.setPosition(.3);
             }
 
             telemetry.addData("Left Motor",  "%.2f", left);

@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+
 public class K9bot
 {
     /* Public OpMode members. */
@@ -88,6 +89,7 @@ public class K9bot
         claw = hwMap.get(Servo.class, "Claw");
         JS1 = hwMap.get(CRServo.class, "Jewel Servo One");
         JS2 = hwMap.get(Servo.class, "Jewel Servo Two");
+        //Define color sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
     }
 }
