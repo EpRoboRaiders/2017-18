@@ -32,7 +32,7 @@ public class TeleOp extends LinearOpMode {
             if(gamepad1.x) {
                 speed = !speed;
             }
-            double slow = speed ? 1 : .75;
+            double slow = speed ? 1 : .50;
             if(gamepad1.right_bumper) {
                 robot.leftMotor.setPower(slow);
                 robot.rightMotor.setPower(slow);
@@ -67,12 +67,12 @@ public class TeleOp extends LinearOpMode {
                 robot.rightGripper.setPosition(0);
             }else{
                 //Open
-                robot.leftGripper.setPosition(.7);
-                robot.rightGripper.setPosition(.3);
+                robot.leftGripper.setPosition(.8);
+                robot.rightGripper.setPosition(.2);
             }
-
-            telemetry.addData("Left Motor",  "%.2f", left);
-            telemetry.addData("Right Motor",  "%.2f", right);
+            telemetry.addData("Speed is ", (speed) ? "100%" : "50%");
+            telemetry.addData("Left Motor",  "%.2f", (left * slow));
+            telemetry.addData("Right Motor",  "%.2f", (right * slow));
             telemetry.addData("Lift Motor(Glyph)",  "%.2f", lift);
             telemetry.update();
 

@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Test Robot", group="K9bot")
+//@Disabled
 public class TeleOpTester extends LinearOpMode {
 
     K9bot robot = new K9bot();
@@ -13,7 +16,7 @@ public class TeleOpTester extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        telemetry.addData("Start", "TeleOpTester Ready");
+        telemetry.addData("Start", "TeleOp Test Ready");
         telemetry.update();
 
         waitForStart();
