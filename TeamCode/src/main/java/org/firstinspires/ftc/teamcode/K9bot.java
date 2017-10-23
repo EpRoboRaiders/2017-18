@@ -47,8 +47,10 @@ public class K9bot
     public Servo leftGripper = null;
     public Servo rightGripper = null;
     public DcMotor relicMotor = null;
+    public DcMotor RintakeMotor = null;
+    public DcMotor LintakeMotor = null;
     public Servo claw = null;
-    public CRServo JS1 = null;
+    public Servo JS1 = null;
     public Servo JS2 = null;
     public ColorSensor colorSensor = null;
 
@@ -70,6 +72,8 @@ public class K9bot
         rightMotor = hwMap.get(DcMotor.class, "RightMotor");
         liftMotor = hwMap.get(DcMotor.class, "LiftMotor");
         relicMotor = hwMap.get(DcMotor.class, "RelicMotor");
+        RintakeMotor = hwMap.get(DcMotor.class, "Right IntakeMotor");
+        LintakeMotor = hwMap.get(DcMotor.class, "Left IntakeMotor");
 
         // Set all motors to zero power
         leftMotor.setPower(0);
@@ -77,19 +81,19 @@ public class K9bot
         liftMotor.setPower(0);
         relicMotor.setPower(0);
 
-        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        RintakeMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Define and initialize ALL installed servos.
         leftGripper = hwMap.get(Servo.class, "Left Gripper");
         rightGripper = hwMap.get(Servo.class, "Right Gripper");
         claw = hwMap.get(Servo.class, "Claw");
-        JS1 = hwMap.get(CRServo.class, "Jewel Servo One");
+        JS1 = hwMap.get(Servo.class, "Jewel Servo One");
         JS2 = hwMap.get(Servo.class, "Jewel Servo Two");
-        //Define color sensor
+
+        // Define color sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
     }
 }

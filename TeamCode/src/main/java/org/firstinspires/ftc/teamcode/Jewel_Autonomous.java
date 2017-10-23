@@ -29,9 +29,9 @@ public class Jewel_Autonomous extends LinearOpMode  {
             robot.JS2.setPosition(.5);
             runtime.reset();
             while (runtime.milliseconds() <= 1700) {
-                robot.JS1.setPower(-.1);
+                robot.JS1.setPosition(-.1);
             }
-            robot.JS1.setPower(0);
+            robot.JS1.setPosition(0);
 
 
             if(robot.colorSensor.blue() > robot.colorSensor.red()){

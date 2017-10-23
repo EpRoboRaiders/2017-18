@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Autonomous", group="K9bot")
@@ -17,6 +18,9 @@ public class Autonomous extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         telemetry.addData("Start", "Autonomous Ready");
         telemetry.update();
 
@@ -24,7 +28,31 @@ public class Autonomous extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            jewel_autonomous.ReadJewel(BLUE_DESIRED); // Runs the Jewel Autonomous(Jewel_Autonomous).
+            //jewel_autonomous.ReadJewel(BLUE_DESIRED); // Runs the Jewel Autonomous(Jewel_Autonomous).
+            robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            robot.leftMotor.setTargetPosition(10);
+            robot.rightMotor.setTargetPosition(10);
+
+            robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.leftMotor.setPower(1);
+            robot.rightMotor.setPower(1);
+
+            robot.leftMotor.getCurrentPosition();
+            robot.rightMotor.getCurrentPosition();
+            telemetry.addData("Left Position = ", robot.leftMotor.getCurrentPosition());
+            telemetry.addData("RightPostion = ", robot.rightMotor.getCurrentPosition());
+            telemetry.update();
+
+            // Returns false when not moving then leaves While Statement
+            while (robot.leftMotor.isBusy() && robot.rightMotor.isBusy()){}
+
+            robot.leftMotor.setPower(0);
+            robot.rightMotor.setPower(0);
+
             break;
         }
     }
