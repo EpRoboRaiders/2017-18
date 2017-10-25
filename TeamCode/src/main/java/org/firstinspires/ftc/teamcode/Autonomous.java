@@ -18,22 +18,26 @@ public class Autonomous extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         telemetry.addData("Start", "Autonomous Ready");
         telemetry.update();
 
         waitForStart();
 
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         while (opModeIsActive()) {
 
             //jewel_autonomous.ReadJewel(BLUE_DESIRED); // Runs the Jewel Autonomous(Jewel_Autonomous).
+
+            robot.leftMotor.setPower(0);
+            robot.rightMotor.setPower(0);
+
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            robot.leftMotor.setTargetPosition(10);
-            robot.rightMotor.setTargetPosition(10);
+            robot.leftMotor.setTargetPosition(5000);
+            robot.rightMotor.setTargetPosition(5000);
 
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -41,10 +45,10 @@ public class Autonomous extends LinearOpMode {
             robot.leftMotor.setPower(1);
             robot.rightMotor.setPower(1);
 
-            robot.leftMotor.getCurrentPosition();
-            robot.rightMotor.getCurrentPosition();
-            telemetry.addData("Left Position = ", robot.leftMotor.getCurrentPosition());
-            telemetry.addData("RightPostion = ", robot.rightMotor.getCurrentPosition());
+            int LPos = robot.leftMotor.getCurrentPosition();
+            int RPos = robot.rightMotor.getCurrentPosition();
+            telemetry.addData("Left Position = ", LPos);
+            telemetry.addData("Right Postion = ", RPos);
             telemetry.update();
 
             // Returns false when not moving then leaves While Statement

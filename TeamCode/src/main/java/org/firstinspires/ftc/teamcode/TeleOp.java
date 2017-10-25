@@ -59,8 +59,8 @@ public class TeleOp extends LinearOpMode {
                 robot.leftMotor.setPower(-slow);
                 robot.rightMotor.setPower(-slow);
             } else {
-                robot.leftMotor.setPower(-left * slow);
-                robot.rightMotor.setPower(-right * slow);
+                robot.leftMotor.setPower((-left * slow));
+                robot.rightMotor.setPower((-right * slow));
             }
 
             // Claw
@@ -79,27 +79,19 @@ public class TeleOp extends LinearOpMode {
             double lift = gamepad2.left_stick_y;
             robot.liftMotor.setPower(lift);
 
-            // Intake
-            if (gamepad2.right_bumper){
-                //In
-                robot.RintakeMotor.setPower(1);
-                robot.LintakeMotor.setPower(1);
-            } else if (gamepad2.left_bumper){
-                //Out
-                robot.RintakeMotor.setPower(-1);
-                robot.LintakeMotor.setPower(-1);
-            } else {
-                robot.RintakeMotor.setPower(0);
-                robot.LintakeMotor.setPower(0);
-            }
-
             // Gripper
             if (gamepad2.b){
+                //Closed
                 robot.leftGripper.setPosition(0);
                 robot.rightGripper.setPosition(1);
             } else if (gamepad2.x) {
-                robot.leftGripper.setPosition(.3);
-                robot.rightGripper.setPosition(.7);
+                //Open More for collecting
+                robot.leftGripper.setPosition(.4);
+                robot.rightGripper.setPosition(.6);
+            } else if (gamepad2.y) {
+                //Open Less for moving away from the cryptobox
+                robot.leftGripper.setPosition(.2);
+                robot.rightGripper.setPosition(.8);
             }
 
             // Feedback

@@ -47,8 +47,6 @@ public class K9bot
     public Servo leftGripper = null;
     public Servo rightGripper = null;
     public DcMotor relicMotor = null;
-    public DcMotor RintakeMotor = null;
-    public DcMotor LintakeMotor = null;
     public Servo claw = null;
     public Servo JS1 = null;
     public Servo JS2 = null;
@@ -72,8 +70,6 @@ public class K9bot
         rightMotor = hwMap.get(DcMotor.class, "RightMotor");
         liftMotor = hwMap.get(DcMotor.class, "LiftMotor");
         relicMotor = hwMap.get(DcMotor.class, "RelicMotor");
-        RintakeMotor = hwMap.get(DcMotor.class, "Right IntakeMotor");
-        LintakeMotor = hwMap.get(DcMotor.class, "Left IntakeMotor");
 
         // Set all motors to zero power
         leftMotor.setPower(0);
@@ -81,10 +77,8 @@ public class K9bot
         liftMotor.setPower(0);
         relicMotor.setPower(0);
 
-        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        // Set motors direction
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        RintakeMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Define and initialize ALL installed servos.
         leftGripper = hwMap.get(Servo.class, "Left Gripper");
