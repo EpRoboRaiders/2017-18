@@ -96,11 +96,7 @@ public class TeleOp extends LinearOpMode {
                 robot.rightGripper.setPosition(.8);
             }
 
-            double tempRight = robot.JS1.getPosition();
-            double tempLeft = robot.JS2.getPosition();
             // Feedback
-            telemetry.addData("Jewel servo 1 is ",  "%.2f", tempRight);
-            telemetry.addData("Jewel servo 2 is ",  "%.2f", tempLeft);
             telemetry.addData("Drive speed is ", (speed) ? "100%" : "50%");
             telemetry.addData("Lift Motor(Glyph)",  "%.2f", lift);
             telemetry.update();
