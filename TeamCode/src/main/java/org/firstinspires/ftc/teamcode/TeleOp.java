@@ -25,18 +25,20 @@ public class TeleOp extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+        //Declare motors without encoders(dont put in K9)
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Start", "TeleOp Ready");
         telemetry.update();
+
         waitForStart();
 
-        while(opModeIsActive()) {
+        // Jewel
+        robot.JS1.setPosition(.5);
+        robot.JS2.setPosition(.5);
 
-            // Jewel
-            robot.JS1.setPosition(.5);
-            robot.JS2.setPosition(.5);
+        while(opModeIsActive()) {
 
             // Tank drive
             double left = gamepad1.left_stick_y;
@@ -59,8 +61,8 @@ public class TeleOp extends LinearOpMode {
                 robot.leftMotor.setPower(-slow);
                 robot.rightMotor.setPower(-slow);
             } else {
-                robot.leftMotor.setPower((-left * slow));
-                robot.rightMotor.setPower((-right * slow));
+                robot.leftMotor.setPower(-left * slow);
+                robot.rightMotor.setPower(-right * slow);
             }
 
             // Claw
@@ -94,7 +96,11 @@ public class TeleOp extends LinearOpMode {
                 robot.rightGripper.setPosition(.8);
             }
 
+            double tempRight = robot.JS1.getPosition();
+            double tempLeft = robot.JS2.getPosition();
             // Feedback
+            telemetry.addData("Jewel servo 1 is ",  "%.2f", tempRight);
+            telemetry.addData("Jewel servo 2 is ",  "%.2f", tempLeft);
             telemetry.addData("Drive speed is ", (speed) ? "100%" : "50%");
             telemetry.addData("Lift Motor(Glyph)",  "%.2f", lift);
             telemetry.update();
