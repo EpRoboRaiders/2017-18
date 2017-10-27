@@ -54,7 +54,7 @@ public class TeleOp extends LinearOpMode {
             }
 
             double slow = speed ? 1 : .50;
-            if (gamepad1.right_bumper) {
+            if(gamepad1.right_bumper) {
                 robot.leftMotor.setPower(slow);
                 robot.rightMotor.setPower(slow);
             } else if (gamepad1.left_bumper) {
