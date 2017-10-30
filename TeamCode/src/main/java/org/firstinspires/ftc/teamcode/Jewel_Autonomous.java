@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Autonomous", group="K9bot")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Jewel Autonomous", group="K9bot")
 @Disabled
 public class Jewel_Autonomous extends LinearOpMode
 {
@@ -28,20 +28,16 @@ public class Jewel_Autonomous extends LinearOpMode
             robot.colorSensor.enableLed(true);
 
             //set initial positions of JS2 and swing JS1 in between the balls
-            robot.JSY.setPosition(.5);
-            runtime.reset();
-            while (runtime.milliseconds() <= 1700)
-            {
-                robot.JSX.setPosition(-.1);
-            }
+            robot.JSY.setPosition(0);
+            robot.JSX.setPosition(.53);
+            sleep(1000);
 
-            robot.JSX.setPosition(0);
-
-            if(robot.colorSensor.blue() > robot.colorSensor.red())
+/*            if(robot.colorSensor.blue() > robot.colorSensor.red())
             {
                 SensorBlue = true;
-            } else
-                {
+            }
+            else
+            {
                 SensorBlue = false;
             }
 
@@ -50,13 +46,16 @@ public class Jewel_Autonomous extends LinearOpMode
 
             if((!SensorBlue && JewelBlueDesired) || (SensorBlue && !JewelBlueDesired))
             {
-                robot.JSY.setPosition(0);
-            } else
+                robot.JSX.setPosition(0);
+            }
+            else
             {
-                robot.JSY.setPosition(1);
+                robot.JSX.setPosition(1);
             }
             sleep(1000);
-            robot.JSY.setPosition(.5);
+*/            robot.JSY.setPosition(.6);
+            robot.JSX.setPosition(.5);
+
         }
     }
 

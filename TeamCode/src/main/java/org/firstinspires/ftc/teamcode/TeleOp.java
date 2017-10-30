@@ -13,7 +13,7 @@ import java.lang.Math;
 public class TeleOp extends LinearOpMode
 {
 
-    K9bot objRobot = new K9bot();
+    K9bot robot = new K9bot();
 
     ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
@@ -23,15 +23,14 @@ public class TeleOp extends LinearOpMode
     {
 
         //Initial declaration of variables used in TeleOp
-        float fltClawPosition = 1;
         boolean blnChangeSpeed = true;
         boolean blnStillPressed = false;
 
-        objRobot.init(hardwareMap);
+        robot.init(hardwareMap);
 
         //Declare motors without encoders(don't put in K9)
-        objRobot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        objRobot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Start", "TeleOp Ready");
         telemetry.update();
@@ -39,8 +38,8 @@ public class TeleOp extends LinearOpMode
         waitForStart();
 
         // Jewel
-        objRobot.JSX.setPosition(.5);
-        objRobot.JSY.setPosition(.5);
+        robot.JSX.setPosition(.5);
+        robot.JSY.setPosition(.6);
 
         while(opModeIsActive())
         {
@@ -65,55 +64,60 @@ public class TeleOp extends LinearOpMode
             double blnSpeed = blnChangeSpeed ? 1 : .50;
             if(gamepad1.right_bumper)
             {
-                objRobot.leftMotor.setPower(blnSpeed);
-                objRobot.rightMotor.setPower(blnSpeed);
+                robot.leftMotor.setPower(blnSpeed);
+                robot.rightMotor.setPower(blnSpeed);
             }
             else if (gamepad1.left_bumper)
             {
-                objRobot.leftMotor.setPower(-blnSpeed);
-                objRobot.rightMotor.setPower(-blnSpeed);
+                robot.leftMotor.setPower(-blnSpeed);
+                robot.rightMotor.setPower(-blnSpeed);
             }
             else
             {
-                objRobot.leftMotor.setPower(-fltLeft * blnSpeed);
-                objRobot.rightMotor.setPower(-fltRight * blnSpeed);
+                robot.leftMotor.setPower(-fltLeft * blnSpeed);
+                robot.rightMotor.setPower(-fltRight * blnSpeed);
             }
 
             // Claw
-            if (gamepad2.y)
+            if (gamepad2.right_bumper)
             {
-                fltClawPosition += .01;
-            } else
-                {
-                if (fltClawPosition <= 0) {
-                    fltClawPosition = 0;
-                } else
-                {
-                    fltClawPosition -= .01;
-                }
+                robot.claw.setPosition(.5);
             }
-            objRobot.claw.setPosition(fltClawPosition);
+            else if (gamepad2.left_bumper)
+            {
+                robot.claw.setPosition(0);
+            }
+
+            // Claw Y Axis
+            if (gamepad2.dpad_up)
+            {
+                robot.clawY.setPosition(1);
+            }
+            else if (gamepad2.dpad_down)
+            {
+                robot.clawY.setPosition(0);
+            }
 
             // Lift
             float fltLift = gamepad2.left_stick_y;
-            objRobot.liftMotor.setPower(fltLift);
+            robot.liftMotor.setPower(fltLift);
 
             // Gripper
             if (gamepad2.b)
             {
                 //Closed
-                objRobot.leftGripper.setPosition(0);
-                objRobot.rightGripper.setPosition(1);
+                robot.leftGripper.setPosition(0);
+                robot.rightGripper.setPosition(1);
             } else if (gamepad2.x)
             {
                 //Open More for collecting
-                objRobot.leftGripper.setPosition(.4);
-                objRobot.rightGripper.setPosition(.6);
+                robot.leftGripper.setPosition(.4);
+                robot.rightGripper.setPosition(.6);
             } else if (gamepad2.y)
             {
                 //Open Less for moving away from the cryptobox
-                objRobot.leftGripper.setPosition(.2);
-                objRobot.rightGripper.setPosition(.8);
+                robot.leftGripper.setPosition(.2);
+                robot.rightGripper.setPosition(.8);
             }
 
             // Feedback

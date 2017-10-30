@@ -32,10 +32,11 @@ public class Autonomous extends LinearOpMode
         {
             // Jewel
             robot.JSX.setPosition(.5);
-            robot.JSY.setPosition(.5);
+            robot.JSY.setPosition(.6);
+            sleep(1000);
 
             jewel_autonomous.ReadJewel(BLUE_DESIRED);
-
+/*
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -61,7 +62,7 @@ public class Autonomous extends LinearOpMode
             }
             robot.leftMotor.setPower(0);
             robot.rightMotor.setPower(0);
-
+*/
         break;
         }
     }

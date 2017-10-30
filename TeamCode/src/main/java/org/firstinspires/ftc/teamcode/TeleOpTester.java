@@ -54,11 +54,11 @@ public class TeleOpTester extends LinearOpMode {
 
             //JS1 & JS2
             if(gamepad2.right_trigger < .5) {
-                robot.JS1.setPosition(1);
-                robot.JS2.setPosition(1);
+                robot.JSY.setPosition(1);
+                robot.JSX.setPosition(1);
             } else {
-                robot.JS1.setPosition(0);
-                robot.JS2.setPosition(0);
+                robot.JSY.setPosition(0);
+                robot.JSX.setPosition(0);
             }
 
             // Claw

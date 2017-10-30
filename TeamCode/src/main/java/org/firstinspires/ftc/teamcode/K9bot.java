@@ -65,9 +65,10 @@ public class K9bot
     public Servo rightGripper = null;
     public DcMotor relicMotor = null;
     public Servo claw = null;
+    public Servo clawY = null;
     //JSX = X movement of jewel, JSY = Y movement of jewel.
-    public Servo JSX = null;
     public Servo JSY = null;
+    public Servo JSX = null;
     public ColorSensor colorSensor = null;
 
     /* Local OpMode members. */
@@ -104,8 +105,9 @@ public class K9bot
         leftGripper = hwMap.get(Servo.class, "Left Gripper");
         rightGripper = hwMap.get(Servo.class, "Right Gripper");
         claw = hwMap.get(Servo.class, "Claw");
-        JSX = hwMap.get(Servo.class, "Jewel Servo One");
-        JSY = hwMap.get(Servo.class, "Jewel Servo Two");
+        clawY = hwMap.get(Servo.class, "Claw Y");
+        JSY = hwMap.get(Servo.class, "Jewel Servo One");
+        JSX = hwMap.get(Servo.class, "Jewel Servo Two");
 
         // Define color sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
