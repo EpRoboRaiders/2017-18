@@ -7,14 +7,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Autonomous", group="K9bot")
 //@Disabled
-public class Autonomous extends LinearOpMode {
+public class Autonomous extends LinearOpMode
+{
     static private final boolean BLUE_DESIRED = true;
     K9bot robot = new K9bot();
     Jewel_Autonomous jewel_autonomous = new Jewel_Autonomous(robot);
     private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
 
     @Override
-    public void runOpMode() {
+    public void runOpMode()
+    {
 
         robot.init(hardwareMap);
 
@@ -26,12 +28,13 @@ public class Autonomous extends LinearOpMode {
 
         waitForStart();
 
-        while(opModeIsActive()) {
+        while(opModeIsActive())
+        {
             // Jewel
-            robot.JS1.setPosition(.5);
-            robot.JS2.setPosition(.5);
+            robot.JSX.setPosition(.5);
+            robot.JSY.setPosition(.5);
 
-            //jewel_autonomous.ReadJewel(BLUE_DESIRED);
+            jewel_autonomous.ReadJewel(BLUE_DESIRED);
 
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -47,7 +50,8 @@ public class Autonomous extends LinearOpMode {
 
 
             // Returns false when not moving then leaves While Statement
-            while(robot.leftMotor.isBusy() && robot.rightMotor.isBusy()){
+            while(robot.leftMotor.isBusy() && robot.rightMotor.isBusy())
+            {
                 int LPos = robot.leftMotor.getCurrentPosition();
                 int RPos = robot.rightMotor.getCurrentPosition();
                 telemetry.addData("Left Position = ", LPos);

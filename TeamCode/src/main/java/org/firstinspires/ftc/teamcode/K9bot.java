@@ -37,6 +37,23 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+/*************************************************************************
+            Hungarian Notation Key
+            ----------------------
+arr - Array
+bln - Boolean
+byt - Byte
+cur - Currency
+flt - Float
+dbl - Double
+int - Integer
+sht - Short
+lng - Long
+obj - Object
+str - String
+vnt - Variant
+
+***************************************************************************/
 
 public class K9bot
 {
@@ -48,8 +65,9 @@ public class K9bot
     public Servo rightGripper = null;
     public DcMotor relicMotor = null;
     public Servo claw = null;
-    public Servo JS1 = null;
-    public Servo JS2 = null;
+    //JSX = X movement of jewel, JSY = Y movement of jewel.
+    public Servo JSX = null;
+    public Servo JSY = null;
     public ColorSensor colorSensor = null;
 
     /* Local OpMode members. */
@@ -57,11 +75,13 @@ public class K9bot
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public K9bot() {
+    public K9bot()
+    {
     }
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap ahwMap)
+    {
         // save reference to HW Map
         hwMap = ahwMap;
 
@@ -84,8 +104,8 @@ public class K9bot
         leftGripper = hwMap.get(Servo.class, "Left Gripper");
         rightGripper = hwMap.get(Servo.class, "Right Gripper");
         claw = hwMap.get(Servo.class, "Claw");
-        JS1 = hwMap.get(Servo.class, "Jewel Servo One");
-        JS2 = hwMap.get(Servo.class, "Jewel Servo Two");
+        JSX = hwMap.get(Servo.class, "Jewel Servo One");
+        JSY = hwMap.get(Servo.class, "Jewel Servo Two");
 
         // Define color sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");

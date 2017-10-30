@@ -10,24 +10,28 @@ import java.lang.Math;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp", group="K9bot")
 //@Disabled
-public class TeleOp extends LinearOpMode {
+public class TeleOp extends LinearOpMode
+{
 
-    K9bot robot = new K9bot();
+    K9bot objRobot = new K9bot();
 
     ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
-    boolean stillPressed = false;
+
     @Override
-    public void runOpMode() {
+    public void runOpMode()
+    {
 
-        double clawPosition = 1;
-        boolean speed = true;
+        //Initial declaration of variables used in TeleOp
+        float fltClawPosition = 1;
+        boolean blnChangeSpeed = true;
+        boolean blnStillPressed = false;
 
-        robot.init(hardwareMap);
+        objRobot.init(hardwareMap);
 
-        //Declare motors without encoders(dont put in K9)
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Declare motors without encoders(don't put in K9)
+        objRobot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        objRobot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Start", "TeleOp Ready");
         telemetry.update();
@@ -35,70 +39,86 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         // Jewel
-        robot.JS1.setPosition(.5);
-        robot.JS2.setPosition(.5);
+        objRobot.JSX.setPosition(.5);
+        objRobot.JSY.setPosition(.5);
 
-        while(opModeIsActive()) {
+        while(opModeIsActive())
+        {
 
             // Tank drive
-            double left = gamepad1.left_stick_y;
-            double right = gamepad1.right_stick_y;
+            float fltLeft = gamepad1.left_stick_y;
+            float fltRight = gamepad1.right_stick_y;
 
-            if (gamepad1.x) {
-                if(!stillPressed) {
-                    speed = !speed;
-                    stillPressed = true;
+            if (gamepad1.x)
+            {
+                if(!blnStillPressed)
+                {
+                    blnChangeSpeed = !blnChangeSpeed;
+                    blnStillPressed = true;
                 }
-            } else {
-                stillPressed = false;
+            }
+            else
+            {
+                blnStillPressed = false;
             }
 
-            double slow = speed ? 1 : .50;
-            if(gamepad1.right_bumper) {
-                robot.leftMotor.setPower(slow);
-                robot.rightMotor.setPower(slow);
-            } else if (gamepad1.left_bumper) {
-                robot.leftMotor.setPower(-slow);
-                robot.rightMotor.setPower(-slow);
-            } else {
-                robot.leftMotor.setPower(-left * slow);
-                robot.rightMotor.setPower(-right * slow);
+            double blnSpeed = blnChangeSpeed ? 1 : .50;
+            if(gamepad1.right_bumper)
+            {
+                objRobot.leftMotor.setPower(blnSpeed);
+                objRobot.rightMotor.setPower(blnSpeed);
+            }
+            else if (gamepad1.left_bumper)
+            {
+                objRobot.leftMotor.setPower(-blnSpeed);
+                objRobot.rightMotor.setPower(-blnSpeed);
+            }
+            else
+            {
+                objRobot.leftMotor.setPower(-fltLeft * blnSpeed);
+                objRobot.rightMotor.setPower(-fltRight * blnSpeed);
             }
 
             // Claw
-            if (gamepad2.y) {
-                clawPosition += .01;
-            } else {
-                if (clawPosition <= 0) {
-                    clawPosition = 0;
-                } else {
-                    clawPosition -= .01;
+            if (gamepad2.y)
+            {
+                fltClawPosition += .01;
+            } else
+                {
+                if (fltClawPosition <= 0) {
+                    fltClawPosition = 0;
+                } else
+                {
+                    fltClawPosition -= .01;
                 }
             }
-            robot.claw.setPosition(clawPosition);
+            objRobot.claw.setPosition(fltClawPosition);
 
             // Lift
-            double lift = gamepad2.left_stick_y;
-            robot.liftMotor.setPower(lift);
+            float fltLift = gamepad2.left_stick_y;
+            objRobot.liftMotor.setPower(fltLift);
 
             // Gripper
-            if (gamepad2.b){
+            if (gamepad2.b)
+            {
                 //Closed
-                robot.leftGripper.setPosition(0);
-                robot.rightGripper.setPosition(1);
-            } else if (gamepad2.x) {
+                objRobot.leftGripper.setPosition(0);
+                objRobot.rightGripper.setPosition(1);
+            } else if (gamepad2.x)
+            {
                 //Open More for collecting
-                robot.leftGripper.setPosition(.4);
-                robot.rightGripper.setPosition(.6);
-            } else if (gamepad2.y) {
+                objRobot.leftGripper.setPosition(.4);
+                objRobot.rightGripper.setPosition(.6);
+            } else if (gamepad2.y)
+            {
                 //Open Less for moving away from the cryptobox
-                robot.leftGripper.setPosition(.2);
-                robot.rightGripper.setPosition(.8);
+                objRobot.leftGripper.setPosition(.2);
+                objRobot.rightGripper.setPosition(.8);
             }
 
             // Feedback
-            telemetry.addData("Drive speed is ", (speed) ? "100%" : "50%");
-            telemetry.addData("Lift Motor(Glyph)",  "%.2f", lift);
+            telemetry.addData("Drive speed is ", (blnChangeSpeed) ? "100%" : "50%");
+            telemetry.addData("Lift Motor(Glyph)",  "%.2f", fltLift);
             telemetry.update();
             // Pause for 40 mS each cycle = update 25 times a second.
             sleep(40);
