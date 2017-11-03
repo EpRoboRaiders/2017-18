@@ -29,7 +29,7 @@ public class Jewel_Autonomous extends LinearOpMode
 
             //set initial positions of JS2 and swing JS1 in between the balls
             robot.JSY.setPosition(0);
-            robot.JSX.setPosition(.53);
+            robot.JSX.setPosition(.5);
             sleep(1000);
 
 /*            if(robot.colorSensor.blue() > robot.colorSensor.red())
