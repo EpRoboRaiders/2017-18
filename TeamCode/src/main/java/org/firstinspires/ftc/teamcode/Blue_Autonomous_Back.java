@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-@Autonomous(name="Blue Autonomous Front", group="K9bot")
+@Autonomous(name="Blue Autonomous Back", group="K9bot")
 //@Disabled
-public class Blue_Autonomous_Front extends LinearOpMode
+public class Blue_Autonomous_Back extends LinearOpMode
 {
 
     static private final boolean BLUE_DESIRED = true;
@@ -48,21 +48,26 @@ public class Blue_Autonomous_Front extends LinearOpMode
         //Set servos to default positions
         robot.JSX.setPosition(.5);
         robot.JSY.setPosition(.6);
+
         robot.leftGripper.setPosition(0);
         robot.rightGripper.setPosition(1);
-
+        /*
         robot.liftMotor.setPower(-1);
         sleep(1000);
         robot.liftMotor.setPower(0);
+        */
 
-//                  Speed, Left, Right
-        encoderDrive(.5,  35.5, 35.5);
+//                Speed, Left, Right
+        encoderDrive(.5,  25, 25);
+        encoderDrive(.5, 13.5, -13.5);
+        encoderDrive(.5, 13, 13);
         encoderDrive(.5, -13.5, 13.5);
-        encoderDrive(.5, 10, 10);
-
+        encoderDrive(.5, 7, 7);
+        /*
         robot.liftMotor.setPower(1);
         sleep(1000);
         robot.liftMotor.setPower(0);
+        */
         //Open the gripper to put glyph is glyph box
         robot.leftGripper.setPosition(.4);
         robot.rightGripper.setPosition(.6);
@@ -114,4 +119,3 @@ public class Blue_Autonomous_Front extends LinearOpMode
         }
     }
 }
-

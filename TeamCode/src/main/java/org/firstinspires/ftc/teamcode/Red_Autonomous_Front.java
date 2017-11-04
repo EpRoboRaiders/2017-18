@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class Red_Autonomous_Front extends LinearOpMode
 {
 
-    static private final boolean BLUE_DESIRED = true;
+    static private final boolean BLUE_DESIRED = false;
     K9bot robot = new K9bot();
     Jewel_Autonomous jewel_autonomous = new Jewel_Autonomous(robot);
     private ElapsedTime     runtime = new ElapsedTime();
@@ -55,24 +55,26 @@ public class Red_Autonomous_Front extends LinearOpMode
         sleep(1000);
         robot.liftMotor.setPower(0);
 
-//                Speed, Left, Right, Wait time
-        encoderDrive(.5,  43,  43, 3.0); //Go to red triangle in front of glyph box
-        encoderDrive(.5, 14, -14, 3.0);  //Turn right (stationary) facing glyph box
-        encoderDrive(.5, 10, 10, 3.0);  //Goes forward to put block into the glyph box
+//                Speed, Left, Right
+        encoderDrive(.5,  35.5, 35.5);
+        encoderDrive(.5, 13.5, -13.5);
+        encoderDrive(.5, 10, 10);
 
         robot.liftMotor.setPower(1);
         sleep(1000);
         robot.liftMotor.setPower(0);
-
         //Open the gripper to put glyph is glyph box
         robot.leftGripper.setPosition(.4);
         robot.rightGripper.setPosition(.6);
+        sleep(1000);
+
+        encoderDrive(.1, 3, 3);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
 
-    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS)
+    public void encoderDrive(double speed, double leftInches, double rightInches)
     {
         int newLeftTarget;
         int newRightTarget;
@@ -92,7 +94,7 @@ public class Red_Autonomous_Front extends LinearOpMode
             robot.leftMotor.setPower(Math.abs(speed));
             robot.rightMotor.setPower(Math.abs(speed));
 
-            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.leftMotor.isBusy() && robot.rightMotor.isBusy()))
+            while (opModeIsActive() && (robot.leftMotor.isBusy() && robot.rightMotor.isBusy()))
             {
 
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
