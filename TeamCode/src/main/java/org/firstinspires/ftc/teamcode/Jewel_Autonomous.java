@@ -6,14 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Jewel Autonomous", group="K9bot")
 @Disabled
 public class Jewel_Autonomous extends LinearOpMode
 {
 
-    private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
     K9bot robot;
 
     public Jewel_Autonomous(K9bot new_robot) {
@@ -22,7 +20,6 @@ public class Jewel_Autonomous extends LinearOpMode
 
     public void ReadJewel(boolean JewelBlueDesired)
     {
-        {
             boolean SensorBlue;
 
             robot.colorSensor.enableLed(true);
@@ -32,7 +29,7 @@ public class Jewel_Autonomous extends LinearOpMode
             robot.JSX.setPosition(.5);
             sleep(1000);
 
-/*            if(robot.colorSensor.blue() > robot.colorSensor.red())
+            if(robot.colorSensor.blue() > 3)
             {
                 SensorBlue = true;
             }
@@ -53,10 +50,8 @@ public class Jewel_Autonomous extends LinearOpMode
                 robot.JSX.setPosition(1);
             }
             sleep(1000);
-*/            robot.JSY.setPosition(.6);
+            robot.JSY.setPosition(.6);
             robot.JSX.setPosition(.5);
-
-        }
     }
 
     public void runOpMode()

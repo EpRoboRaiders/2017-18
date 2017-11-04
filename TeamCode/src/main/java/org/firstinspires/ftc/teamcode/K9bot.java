@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 /*************************************************************************
             Hungarian Notation Key
@@ -70,6 +71,7 @@ public class K9bot
     public Servo JSY = null;
     public Servo JSX = null;
     public ColorSensor colorSensor = null;
+    public DistanceSensor distanceSensor = null;
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
@@ -109,7 +111,7 @@ public class K9bot
         JSY = hwMap.get(Servo.class, "Jewel Servo One");
         JSX = hwMap.get(Servo.class, "Jewel Servo Two");
 
-        // Define color sensor
-        colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
+        // Define color/distance sensor
+        colorSensor = hwMap.get(ColorSensor.class, "Color Distance Sensor");
     }
 }

@@ -38,7 +38,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
+        telemetry.addData("Path 0",  "Starting at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
                 robot.rightMotor.getCurrentPosition());
         telemetry.update();
@@ -50,25 +50,23 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.JSY.setPosition(.6);
         robot.leftGripper.setPosition(0);
         robot.rightGripper.setPosition(1);
-
         robot.liftMotor.setPower(-1);
         sleep(1000);
         robot.liftMotor.setPower(0);
 
 //                  Speed, Left, Right
-        encoderDrive(.5,  35.5, 35.5);
-        encoderDrive(.5, -13.5, 13.5);
-        encoderDrive(.5, 10, 10);
+        encoderDrive(.5,  35.5, 35.5);//Forward
+        encoderDrive(.5, -13.5, 13.5);//Turn Right
+        encoderDrive(.5, 10, 10);//Forward
 
         robot.liftMotor.setPower(1);
         sleep(1000);
         robot.liftMotor.setPower(0);
-        //Open the gripper to put glyph is glyph box
         robot.leftGripper.setPosition(.4);
         robot.rightGripper.setPosition(.6);
         sleep(1000);
 
-        encoderDrive(.1, 3, 3);
+        encoderDrive(.1, 1.5, 1.5);//Forward
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -97,8 +95,8 @@ public class Blue_Autonomous_Front extends LinearOpMode
             while (opModeIsActive() && (robot.leftMotor.isBusy() && robot.rightMotor.isBusy()))
             {
 
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path 1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path 2",  "Running at %7d :%7d",
                         robot.leftMotor.getCurrentPosition(),
                         robot.rightMotor.getCurrentPosition());
                 telemetry.update();
@@ -106,7 +104,6 @@ public class Blue_Autonomous_Front extends LinearOpMode
 
             robot.leftMotor.setPower(0);
             robot.rightMotor.setPower(0);
-
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
