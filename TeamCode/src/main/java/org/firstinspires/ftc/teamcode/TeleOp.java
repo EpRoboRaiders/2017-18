@@ -39,7 +39,7 @@ public class TeleOp extends LinearOpMode
 
         // Jewel
         robot.JSX.setPosition(.5);
-        robot.JSY.setPosition(.6);
+        robot.JSY.setPosition(.7);
 
         while(opModeIsActive())
         {

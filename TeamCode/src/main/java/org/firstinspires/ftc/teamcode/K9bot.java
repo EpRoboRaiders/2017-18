@@ -112,6 +112,6 @@ public class K9bot
         JSX = hwMap.get(Servo.class, "Jewel Servo Two");
 
         // Define color/distance sensor
-        colorSensor = hwMap.get(ColorSensor.class, "Color Distance Sensor");
+        colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
     }
 }

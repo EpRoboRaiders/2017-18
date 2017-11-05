@@ -15,7 +15,6 @@ public class Blue_Autonomous_Front extends LinearOpMode
 
     static private final boolean BLUE_DESIRED = true;
     K9bot robot = new K9bot();
-    Jewel_Autonomous jewel_autonomous = new Jewel_Autonomous(robot);
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;
@@ -47,17 +46,19 @@ public class Blue_Autonomous_Front extends LinearOpMode
 
         //Set servos to default positions
         robot.JSX.setPosition(.5);
-        robot.JSY.setPosition(.6);
+        robot.JSY.setPosition(.7);
         robot.leftGripper.setPosition(0);
         robot.rightGripper.setPosition(1);
         robot.liftMotor.setPower(-1);
         sleep(1000);
         robot.liftMotor.setPower(0);
 
-//                  Speed, Left, Right
+        ReadJewel(BLUE_DESIRED);
+
+        encoderDrive(.5, -13, 13);//Turn Left
         encoderDrive(.5,  35.5, 35.5);//Forward
-        encoderDrive(.5, -13.5, 13.5);//Turn Right
-        encoderDrive(.5, 10, 10);//Forward
+        encoderDrive(.5, -13, 13);//Turn Left
+        encoderDrive(.5, 9, 9);//Forward
 
         robot.liftMotor.setPower(1);
         sleep(1000);
@@ -66,7 +67,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.rightGripper.setPosition(.6);
         sleep(1000);
 
-        encoderDrive(.1, 1.5, 1.5);//Forward
+        encoderDrive(.1, 2, 2);//Forward
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -109,6 +110,46 @@ public class Blue_Autonomous_Front extends LinearOpMode
 
             //  sleep(250);   // optional pause after each move
         }
+
+    }
+
+    public void ReadJewel(boolean JewelBlueDesired)
+    {
+        boolean SensorBlue;
+
+        robot.colorSensor.enableLed(true);
+
+        //set initial positions of JS2 and swing JS1 in between the balls
+        robot.JSY.setPosition(0);
+        robot.JSX.setPosition(.5);
+        sleep(1500);
+
+        if(robot.colorSensor.blue()  > robot.colorSensor.red())
+        {
+            sleep(500);
+            SensorBlue = true;
+        }
+        else
+        {
+            sleep(500);
+            SensorBlue = false;
+        }
+
+        telemetry.addData("Jewel is ", (SensorBlue) ? "BLUE" : "RED");
+        telemetry.update();
+
+        if(SensorBlue ^ JewelBlueDesired)
+        {
+            robot.JSX.setPosition(0);
+        }
+        else
+        {
+            robot.JSX.setPosition(1);
+        }
+        sleep(1000);
+        robot.JSY.setPosition(.7);
+        robot.JSX.setPosition(.5);
     }
 }
+
 
