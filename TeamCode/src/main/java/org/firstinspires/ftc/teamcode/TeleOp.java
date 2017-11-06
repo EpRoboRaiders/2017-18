@@ -48,7 +48,7 @@ public class TeleOp extends LinearOpMode
             float fltLeft = gamepad1.left_stick_y;
             float fltRight = gamepad1.right_stick_y;
 
-            if (gamepad1.x)
+            if(gamepad1.x)
             {
                 if(!blnStillPressed)
                 {
@@ -60,6 +60,11 @@ public class TeleOp extends LinearOpMode
             {
                 blnStillPressed = false;
             }
+
+            /*
+            If(gamepad.x) {
+            }
+             */
 
             double blnSpeed = blnChangeSpeed ? 1 : .50;
             if(gamepad1.right_bumper)
