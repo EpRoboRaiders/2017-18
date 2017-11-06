@@ -68,6 +68,7 @@ public class Red_Autonomous_Front extends LinearOpMode
         sleep(1000);
 
         encoderDrive(.1, 2, 2);//Forward
+        encoderDrive(.5, -2, -2);//Backward
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -118,7 +119,7 @@ public class Red_Autonomous_Front extends LinearOpMode
         robot.colorSensor.enableLed(true);
 
         //set initial positions of JS2 and swing JS1 in between the balls
-        robot.JSY.setPosition(0);
+        robot.JSY.setPosition(.06);
         robot.JSX.setPosition(.5);
         sleep(1500);
 
