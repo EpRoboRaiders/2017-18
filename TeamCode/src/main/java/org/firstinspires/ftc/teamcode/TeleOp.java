@@ -113,12 +113,14 @@ public class TeleOp extends LinearOpMode
                 //Closed
                 robot.leftGripper.setPosition(0);
                 robot.rightGripper.setPosition(1);
-            } else if (gamepad2.x)
+            }
+            else if (gamepad2.x)
             {
                 //Open More for collecting
                 robot.leftGripper.setPosition(.4);
                 robot.rightGripper.setPosition(.6);
-            } else if (gamepad2.y)
+            }
+            else if (gamepad2.y)
             {
                 //Open Less for moving away from the cryptobox
                 robot.leftGripper.setPosition(.2);

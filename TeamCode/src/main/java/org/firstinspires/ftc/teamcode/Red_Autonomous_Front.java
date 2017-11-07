@@ -56,7 +56,7 @@ public class Red_Autonomous_Front extends LinearOpMode
         ReadJewel(BLUE_DESIRED);
 
         encoderDrive(.5, 13, -13);//Turn Right
-        encoderDrive(.5,  35.5, 35.5);//Forward
+        encoderDrive(.5, 32,32);// CENTER encoderDrive(.5,  35.5, 35.5);//Forward
         encoderDrive(.5, 13, -13);//Turn Right
         encoderDrive(.5, 9, 9);//Forward
 
