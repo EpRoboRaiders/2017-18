@@ -14,6 +14,7 @@ public class Red_Autonomous_Front extends LinearOpMode
 {
 
     static private final boolean BLUE_DESIRED = false;
+    Vuforia vuforia = new Vuforia();
     K9bot robot = new K9bot();
     private ElapsedTime     runtime = new ElapsedTime();
 
@@ -21,6 +22,27 @@ public class Red_Autonomous_Front extends LinearOpMode
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+
+    public void encoderMovement(String intColumn)
+    {
+        encoderDrive(.5, 13, -13);//Turn Right
+
+        switch(intColumn)
+        {
+            case "Left":
+                encoderDrive(.5, 43, 43); //Left
+                break;
+            case "Right":
+                encoderDrive(.5, 28.5, 28.5); //Right
+                break;
+            case "Center":
+                encoderDrive(.5, 35.5, 35.5); //Center
+                break;
+        }
+        encoderDrive(.5, 13, -13);//Turn Right
+        encoderDrive(.5, 9, 9);//Forward
+    }
+
 
     @Override
     public void runOpMode()
@@ -55,14 +77,13 @@ public class Red_Autonomous_Front extends LinearOpMode
 
         ReadJewel(BLUE_DESIRED);
 
-        encoderDrive(.5, 13, -13);//Turn Right
-        encoderDrive(.5, 32,32);// CENTER encoderDrive(.5,  35.5, 35.5);//Forward
-        encoderDrive(.5, 13, -13);//Turn Right
-        encoderDrive(.5, 9, 9);//Forward
+        encoderMovement(vuforia.getColumnPos());
+        sleep(2000);
 
         robot.liftMotor.setPower(1);
         sleep(1000);
         robot.liftMotor.setPower(0);
+
         robot.leftGripper.setPosition(.4);
         robot.rightGripper.setPosition(.6);
         sleep(1000);

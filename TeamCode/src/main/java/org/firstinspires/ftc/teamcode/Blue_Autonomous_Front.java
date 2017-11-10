@@ -22,6 +22,26 @@ public class Blue_Autonomous_Front extends LinearOpMode
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
+    public void encoderMovement(int intColumn)
+    {
+        encoderDrive(.5, -13, 13);//Turn Left
+
+        switch(intColumn)
+        {
+            case 1:
+                encoderDrive(.5, 43, 43); //Left
+                break;
+            case 2:
+                encoderDrive(.5, 28.5, 28.5); //Right
+                break;
+            case 3:
+                encoderDrive(.5, 35.5, 35.5); //Center
+                break;
+        }
+            encoderDrive(.5, -13, 13);//Turn Left
+            encoderDrive(.5, 9, 9);//Forward
+    }
+
     @Override
     public void runOpMode()
     {
@@ -55,10 +75,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
 
         ReadJewel(BLUE_DESIRED);
 
-        encoderDrive(.5, -13, 13);//Turn Left
-        encoderDrive(.5,  35.5, 35.5);//Forward
-        encoderDrive(.5, -13, 13);//Turn Left
-        encoderDrive(.5, 9, 9);//Forward
+        encoderMovement(3);
 
         robot.liftMotor.setPower(1);
         sleep(1000);

@@ -73,7 +73,6 @@ public class K9bot
     public Servo JSY = null;
     public Servo JSX = null;
     public ColorSensor colorSensor = null;
-    public DistanceSensor distanceSensor = null;
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
