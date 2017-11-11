@@ -7,44 +7,34 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @Autonomous(name="Blue Autonomous Front", group="K9bot")
 //@Disabled
-public class Blue_Autonomous_Front extends LinearOpMode
-{
+public class Blue_Autonomous_Front extends LinearOpMode {
 
     static private final boolean BLUE_DESIRED = true;
     K9bot robot = new K9bot();
-    private ElapsedTime     runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
-
-    public void encoderMovement(int intColumn)
-    {
-        encoderDrive(.5, -13, 13);//Turn Left
-
-        switch(intColumn)
-        {
-            case 1:
-                encoderDrive(.5, 43, 43); //Left
-                break;
-            case 2:
-                encoderDrive(.5, 28.5, 28.5); //Right
-                break;
-            case 3:
-                encoderDrive(.5, 35.5, 35.5); //Center
-                break;
-        }
-            encoderDrive(.5, -13, 13);//Turn Left
-            encoderDrive(.5, 9, 9);//Forward
-    }
+    static final double COUNTS_PER_MOTOR_REV = 1440;
+    static final double DRIVE_GEAR_REDUCTION = 1.0;
+    static final double WHEEL_DIAMETER_INCHES = 4.0;
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
 
         robot.init(hardwareMap);
 
@@ -57,7 +47,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        telemetry.addData("Path 0",  "Starting at %7d :%7d",
+        telemetry.addData("Path 0", "Starting at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
                 robot.rightMotor.getCurrentPosition());
         telemetry.update();
@@ -75,11 +65,13 @@ public class Blue_Autonomous_Front extends LinearOpMode
 
         ReadJewel(BLUE_DESIRED);
 
-        encoderMovement(3);
+        encoderMovement(getColumnPos());
+        sleep(2000);
 
         robot.liftMotor.setPower(1);
         sleep(1000);
         robot.liftMotor.setPower(0);
+
         robot.leftGripper.setPosition(.4);
         robot.rightGripper.setPosition(.6);
         sleep(1000);
@@ -91,16 +83,14 @@ public class Blue_Autonomous_Front extends LinearOpMode
         telemetry.update();
     }
 
-    public void encoderDrive(double speed, double leftInches, double rightInches)
-    {
+    public void encoderDrive(double speed, double leftInches, double rightInches) {
         int newLeftTarget;
         int newRightTarget;
 
-        if (opModeIsActive())
-        {
+        if (opModeIsActive()) {
 
-            newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.rightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
             robot.leftMotor.setTargetPosition(newLeftTarget);
             robot.rightMotor.setTargetPosition(newRightTarget);
 
@@ -111,11 +101,10 @@ public class Blue_Autonomous_Front extends LinearOpMode
             robot.leftMotor.setPower(Math.abs(speed));
             robot.rightMotor.setPower(Math.abs(speed));
 
-            while (opModeIsActive() && (robot.leftMotor.isBusy() && robot.rightMotor.isBusy()))
-            {
+            while (opModeIsActive() && (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
 
-                telemetry.addData("Path 1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path 2",  "Running at %7d :%7d",
+                telemetry.addData("Path 1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path 2", "Running at %7d :%7d",
                         robot.leftMotor.getCurrentPosition(),
                         robot.rightMotor.getCurrentPosition());
                 telemetry.update();
@@ -128,11 +117,9 @@ public class Blue_Autonomous_Front extends LinearOpMode
 
             //  sleep(250);   // optional pause after each move
         }
-
     }
 
-    public void ReadJewel(boolean JewelBlueDesired)
-    {
+    public void ReadJewel(boolean JewelBlueDesired) {
         boolean SensorBlue;
 
         robot.colorSensor.enableLed(true);
@@ -142,13 +129,10 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.JSX.setPosition(.5);
         sleep(1500);
 
-        if(robot.colorSensor.blue()  > robot.colorSensor.red())
-        {
+        if (robot.colorSensor.blue() > robot.colorSensor.red()) {
             sleep(500);
             SensorBlue = true;
-        }
-        else
-        {
+        } else {
             sleep(500);
             SensorBlue = false;
         }
@@ -156,18 +140,79 @@ public class Blue_Autonomous_Front extends LinearOpMode
         telemetry.addData("Jewel is ", (SensorBlue) ? "BLUE" : "RED");
         telemetry.update();
 
-        if(SensorBlue ^ JewelBlueDesired)
-        {
+        if (SensorBlue ^ JewelBlueDesired) {
             robot.JSX.setPosition(0);
-        }
-        else
-        {
+        } else {
             robot.JSX.setPosition(1);
         }
         sleep(1000);
         robot.JSY.setPosition(.7);
         robot.JSX.setPosition(.5);
     }
+
+    public void encoderMovement(String intColumn) {
+        encoderDrive(.5, -13, 13);//Turn Left
+
+        switch (intColumn) {
+            case "Right":
+                encoderDrive(.5, 43, 43); //Right
+                break;
+            case "Left":
+                encoderDrive(.5, 28, 28); //Left
+                break;
+            case "Center":
+                encoderDrive(.5, 35.5, 35.5); //Center
+                break;
+        }
+        encoderDrive(.5, -13, 13);//Turn Left
+        encoderDrive(.5, 9, 9);//Forward
+    }
+
+    VuforiaLocalizer vuforia;
+
+    public String getColumnPos() {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = "ARMl4sr/////AAAAGW7XCTx7E0rTsT4i0g6I9E8IY/EGEWdA5QHmgcnvsPFeuf+2cafgFWlJht6/m4ps4hdqUeDgqSaHurLTDfSET8oOvZUEOiMYDq2xVxNDQzW4Puz+Tl8pOFb1EfCrP28aBkcBkDfXDADiws03Ap/mD///h0HK5rVbe3KYhnefc0odh1F7ZZ1oxJy+A1w2Zb8JCXM/SWzAVvB1KEAnz87XRNeaJAon4c0gi9nLAdZlG0jnC6bx+m0140C76l14CTthmzSIdZMBkIb8/03aQIouFzLzz+K1fvXauT72TlDAbumhEak/s5pkN6L555F28Jf8KauwCnGyLnePxTm9/NKBQ4xW/bzWNpEdfY4CrBxFoSkq";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT; // Use FRONT Camera (Change to BACK if you want to use that one)
+        parameters.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES; // Display Axes
+
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        waitForStart();
+
+        relicTrackables.activate(); // Activate Vuforia
+
+        while (opModeIsActive()) {
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) { // Test to see if image is visable
+                OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) relicTemplate.getListener()).getPose(); // Get Positional value to use later
+                telemetry.addData("Pose", format(pose));
+                if (pose != null) {
+                    VectorF trans = pose.getTranslation();
+                    Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+
+                }
+                if (vuMark == RelicRecoveryVuMark.LEFT) { // Test to see if Image is the "LEFT" image and display value.
+                    telemetry.addData("VuMark is", "Left");
+                    return "Left";
+                } else if (vuMark == RelicRecoveryVuMark.RIGHT) { // Test to see if Image is the "RIGHT" image and display values.
+                    telemetry.addData("VuMark is", "Right");
+                    return "Right";
+                } else if (vuMark == RelicRecoveryVuMark.CENTER) { // Test to see if Image is the "CENTER" image and display values.
+                    telemetry.addData("VuMark is", "Center");
+                    return "Center";
+                }
+            } else {
+                telemetry.addData("VuMark", "not visible");
+            }
+            telemetry.update();
+        }
+        return "Center"; //returns center if no picture is read
+    }
+
+    String format(OpenGLMatrix transformationMatrix) {
+        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
+    }
 }
-
-

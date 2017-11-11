@@ -18,8 +18,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous(name = "VuforiaRelic", group = "Vuforia")
+@Disabled
 public class Vuforia extends LinearOpMode
 {
     OpenGLMatrix lastLocation = null;
@@ -72,7 +74,7 @@ public class Vuforia extends LinearOpMode
             }
             telemetry.update();
         }
-        return null; //returns an error
+        return "Center"; //returns center if no picture is read
     }
     public void runOpMode()
     {
