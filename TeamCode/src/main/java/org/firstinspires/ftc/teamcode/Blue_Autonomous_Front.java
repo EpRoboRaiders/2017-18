@@ -66,7 +66,6 @@ public class Blue_Autonomous_Front extends LinearOpMode {
         ReadJewel(BLUE_DESIRED);
 
         encoderMovement(getColumnPos());
-        sleep(2000);
 
         robot.liftMotor.setPower(1);
         sleep(1000);
@@ -170,7 +169,8 @@ public class Blue_Autonomous_Front extends LinearOpMode {
 
     VuforiaLocalizer vuforia;
 
-    public String getColumnPos() {
+    public String getColumnPos()
+    {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         parameters.vuforiaLicenseKey = "ARMl4sr/////AAAAGW7XCTx7E0rTsT4i0g6I9E8IY/EGEWdA5QHmgcnvsPFeuf+2cafgFWlJht6/m4ps4hdqUeDgqSaHurLTDfSET8oOvZUEOiMYDq2xVxNDQzW4Puz+Tl8pOFb1EfCrP28aBkcBkDfXDADiws03Ap/mD///h0HK5rVbe3KYhnefc0odh1F7ZZ1oxJy+A1w2Zb8JCXM/SWzAVvB1KEAnz87XRNeaJAon4c0gi9nLAdZlG0jnC6bx+m0140C76l14CTthmzSIdZMBkIb8/03aQIouFzLzz+K1fvXauT72TlDAbumhEak/s5pkN6L555F28Jf8KauwCnGyLnePxTm9/NKBQ4xW/bzWNpEdfY4CrBxFoSkq";
@@ -180,28 +180,24 @@ public class Blue_Autonomous_Front extends LinearOpMode {
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        waitForStart();
 
         relicTrackables.activate(); // Activate Vuforia
-
-        while (opModeIsActive()) {
+        while (opModeIsActive())
+        {
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) { // Test to see if image is visable
-                OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) relicTemplate.getListener()).getPose(); // Get Positional value to use later
-                telemetry.addData("Pose", format(pose));
-                if (pose != null) {
-                    VectorF trans = pose.getTranslation();
-                    Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-
-                }
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) // Test to see if image is visable
+            {
                 if (vuMark == RelicRecoveryVuMark.LEFT) { // Test to see if Image is the "LEFT" image and display value.
                     telemetry.addData("VuMark is", "Left");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Left";
                 } else if (vuMark == RelicRecoveryVuMark.RIGHT) { // Test to see if Image is the "RIGHT" image and display values.
                     telemetry.addData("VuMark is", "Right");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Right";
                 } else if (vuMark == RelicRecoveryVuMark.CENTER) { // Test to see if Image is the "CENTER" image and display values.
                     telemetry.addData("VuMark is", "Center");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Center";
                 }
             } else {
@@ -209,10 +205,6 @@ public class Blue_Autonomous_Front extends LinearOpMode {
             }
             telemetry.update();
         }
-        return "Center"; //returns center if no picture is read
-    }
-
-    String format(OpenGLMatrix transformationMatrix) {
-        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
+        return "Center";
     }
 }

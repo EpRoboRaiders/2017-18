@@ -68,7 +68,6 @@ public class Red_Autonomous_Front extends LinearOpMode
         ReadJewel(BLUE_DESIRED);
 
         encoderMovement(getColumnPos());
-        sleep(2000);
 
         robot.liftMotor.setPower(1);
         sleep(1000);
@@ -194,45 +193,31 @@ public class Red_Autonomous_Front extends LinearOpMode
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        waitForStart();
 
         relicTrackables.activate(); // Activate Vuforia
-
         while (opModeIsActive())
         {
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) { // Test to see if image is visable
-                OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) relicTemplate.getListener()).getPose(); // Get Positional value to use later
-                telemetry.addData("Pose", format(pose));
-                if (pose != null)
-                {
-                    VectorF trans = pose.getTranslation();
-                    Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-
-                }
-                if (vuMark == RelicRecoveryVuMark.LEFT)
-                { // Test to see if Image is the "LEFT" image and display value.
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) // Test to see if image is visable
+            {
+                if (vuMark == RelicRecoveryVuMark.LEFT) { // Test to see if Image is the "LEFT" image and display value.
                     telemetry.addData("VuMark is", "Left");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Left";
-                } else if (vuMark == RelicRecoveryVuMark.RIGHT)
-                { // Test to see if Image is the "RIGHT" image and display values.
+                } else if (vuMark == RelicRecoveryVuMark.RIGHT) { // Test to see if Image is the "RIGHT" image and display values.
                     telemetry.addData("VuMark is", "Right");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Right";
-                } else if (vuMark == RelicRecoveryVuMark.CENTER)
-                { // Test to see if Image is the "CENTER" image and display values.
+                } else if (vuMark == RelicRecoveryVuMark.CENTER) { // Test to see if Image is the "CENTER" image and display values.
                     telemetry.addData("VuMark is", "Center");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Center";
                 }
-            } else
-            {
+            } else {
                 telemetry.addData("VuMark", "not visible");
             }
             telemetry.update();
         }
-        return "Center"; //returns center if no picture is read
-    }
-    String format(OpenGLMatrix transformationMatrix)
-    {
-        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
+        return "Center";
     }
 }

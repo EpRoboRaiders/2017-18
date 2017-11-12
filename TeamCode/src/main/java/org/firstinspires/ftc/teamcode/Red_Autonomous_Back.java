@@ -7,6 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @Autonomous(name="Red Autonomous Back", group="K9bot")
 //@Disabled
@@ -55,12 +60,7 @@ public class Red_Autonomous_Back extends LinearOpMode
 
         ReadJewel(BLUE_DESIRED);
 
-        encoderDrive(.5, 13, -13);//Turn Right
-        encoderDrive(.5,  25, 25);//Forward
-        encoderDrive(.5, -13.5, 13.5);//Turn Left
-        encoderDrive(.5, 13, 13);//Forward
-        encoderDrive(.5, 13.5, -13.5);//Turn Right
-        encoderDrive(.5, 7, 7);//Forward
+        encoderMovement(getColumnPos());
 
         robot.liftMotor.setPower(1);
         sleep(1000);
@@ -150,5 +150,65 @@ public class Red_Autonomous_Back extends LinearOpMode
         sleep(1000);
         robot.JSY.setPosition(.7);
         robot.JSX.setPosition(.5);
+    }
+    public void encoderMovement(String intColumn) {
+
+        encoderDrive(.5, 13, -13);//Turn Right
+        encoderDrive(.5,  25, 25);//Forward
+        encoderDrive(.5, -13.5, 13.5);//Turn Left
+        switch (intColumn) {
+            case "Right":
+                encoderDrive(.5, 6, 6); //Right
+                break;
+            case "Left":
+                encoderDrive(.5, 21.5, 21.5); //Left
+                break;
+            case "Center":
+                encoderDrive(.5, 13, 13); //Center
+                break;
+        }
+        encoderDrive(.5, 13.5, -13.5);//Turn Right
+        encoderDrive(.5, 7, 7);//Forward
+    }
+
+    VuforiaLocalizer vuforia;
+
+    public String getColumnPos()
+    {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = "ARMl4sr/////AAAAGW7XCTx7E0rTsT4i0g6I9E8IY/EGEWdA5QHmgcnvsPFeuf+2cafgFWlJht6/m4ps4hdqUeDgqSaHurLTDfSET8oOvZUEOiMYDq2xVxNDQzW4Puz+Tl8pOFb1EfCrP28aBkcBkDfXDADiws03Ap/mD///h0HK5rVbe3KYhnefc0odh1F7ZZ1oxJy+A1w2Zb8JCXM/SWzAVvB1KEAnz87XRNeaJAon4c0gi9nLAdZlG0jnC6bx+m0140C76l14CTthmzSIdZMBkIb8/03aQIouFzLzz+K1fvXauT72TlDAbumhEak/s5pkN6L555F28Jf8KauwCnGyLnePxTm9/NKBQ4xW/bzWNpEdfY4CrBxFoSkq";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT; // Use FRONT Camera (Change to BACK if you want to use that one)
+        parameters.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES; // Display Axes
+
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+
+        relicTrackables.activate(); // Activate Vuforia
+        while (opModeIsActive())
+        {
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) // Test to see if image is visable
+            {
+                if (vuMark == RelicRecoveryVuMark.LEFT) { // Test to see if Image is the "LEFT" image and display value.
+                    telemetry.addData("VuMark is", "Left");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
+                    return "Left";
+                } else if (vuMark == RelicRecoveryVuMark.RIGHT) { // Test to see if Image is the "RIGHT" image and display values.
+                    telemetry.addData("VuMark is", "Right");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
+                    return "Right";
+                } else if (vuMark == RelicRecoveryVuMark.CENTER) { // Test to see if Image is the "CENTER" image and display values.
+                    telemetry.addData("VuMark is", "Center");
+                    relicTrackables.deactivate(); // Deactivate Vuforia
+                    return "Center";
+                }
+            } else {
+                telemetry.addData("VuMark", "not visible");
+            }
+            telemetry.update();
+        }
+        return "Center";
     }
 }

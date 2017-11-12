@@ -60,17 +60,6 @@ public class TeleOp extends LinearOpMode
             {
                 blnStillPressed = false;
             }
-            /*
-            if(gamepad.x && !blnStillPressed)
-            {
-                blnStillPressed = true;
-                blnChangeSpeed = !blnChangeSpeed;
-            }
-            else
-            {
-                blnStillPressed = false;
-            }
-             */
 
             double blnSpeed = blnChangeSpeed ? 1 : .50;
             if(gamepad1.right_bumper)
