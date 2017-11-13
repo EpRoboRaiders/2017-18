@@ -70,7 +70,7 @@ public class Red_Autonomous_Back extends LinearOpMode
         sleep(1000);
 
         encoderDrive(.1, 3, 3);//Forward
-        encoderDrive(.5, -2, -2);//Backward
+        encoderDrive(.5, -4, -4);//Backward
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -186,26 +186,38 @@ public class Red_Autonomous_Back extends LinearOpMode
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
         relicTrackables.activate(); // Activate Vuforia
+        runtime.reset();
         while (opModeIsActive())
         {
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) // Test to see if image is visable
             {
-                if (vuMark == RelicRecoveryVuMark.LEFT) { // Test to see if Image is the "LEFT" image and display value.
+                if (vuMark == RelicRecoveryVuMark.LEFT)
+                { // Test to see if Image is the "LEFT" image and display value.
                     telemetry.addData("VuMark is", "Left");
                     relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Left";
-                } else if (vuMark == RelicRecoveryVuMark.RIGHT) { // Test to see if Image is the "RIGHT" image and display values.
+                }
+                else if (vuMark == RelicRecoveryVuMark.RIGHT)
+                { // Test to see if Image is the "RIGHT" image and display values.
                     telemetry.addData("VuMark is", "Right");
                     relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Right";
-                } else if (vuMark == RelicRecoveryVuMark.CENTER) { // Test to see if Image is the "CENTER" image and display values.
+                }
+                else if (vuMark == RelicRecoveryVuMark.CENTER)
+                { // Test to see if Image is the "CENTER" image and display values.
                     telemetry.addData("VuMark is", "Center");
                     relicTrackables.deactivate(); // Deactivate Vuforia
                     return "Center";
                 }
-            } else {
+            }
+            else
+            {
                 telemetry.addData("VuMark", "not visible");
+                if(runtime.seconds() >= 5)
+                {
+                    return "Center";
+                }
             }
             telemetry.update();
         }
